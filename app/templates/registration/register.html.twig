@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="text-center mb-4">
+            <div class="logo">📝</div>
+            <h2 class="mb-3">Inscription</h2>
+            <p class="text-muted">Créez votre compte gratuitement</p>
+        </div>
+
+        {{ form_start(registrationForm) }}
+            
+            <div class="mb-3">
+                {{ form_label(registrationForm.name) }}
+                {{ form_widget(registrationForm.name) }}
+                <div class="form-error">
+                    {{ form_errors(registrationForm.name) }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.email) }}
+                {{ form_widget(registrationForm.email) }}
+                <div class="form-error">
+                    {{ form_errors(registrationForm.email) }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.plainPassword.first) }}
+                {{ form_widget(registrationForm.plainPassword.first) }}
+                <div class="form-error">
+                    {{ form_errors(registrationForm.plainPassword.first) }}
+                </div>
+            </div>
+
+            <div class="mb-4">
+                {{ form_label(registrationForm.plainPassword.second) }}
+                {{ form_widget(registrationForm.plainPassword.second) }}
+                <div class="form-error">
+                    {{ form_errors(registrationForm.plainPassword.second) }}
+                </div>
+            </div>
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary-custom btn-custom">
+                    S'inscrire
+                </button>
+            </div>
+
+            <div class="text-center">
+                <p class="text-muted mb-0">
+                    Vous avez déjà un compte ? 
+                    <a href="{{ path('app_login') }}" class="text-decoration-none fw-bold" style="color: #667eea;">
+                        Connectez-vous
+                    </a>
+                </p>
+            </div>
+
+        {{ form_end(registrationForm) }}
+    </div>
+</div>
+{% endblock %}

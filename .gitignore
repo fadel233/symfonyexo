@@ -1,0 +1,21 @@
+
+
+# App Symfony
+app/vendor/
+app/var/
+app/.env.local
+app/.env.local.php
+app/.env.*.local
+app/public/bundles/
+app/symfony.lock
+
+
+###> phpunit/phpunit ###
+app/phpunit.xml
+app/.phpunit.cache/
+###< phpunit/phpunit ###
+
+###> symfony/asset-mapper ###
+app/public/assets/
+app/assets/vendor/
+###< symfony/asset-mapper ###

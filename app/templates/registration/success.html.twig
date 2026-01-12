@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription réussie{% endblock %}
+
+{% block body %}
+<div class="auth-container">
+    <div class="auth-card text-center">
+        <div class="mb-4">
+            <div class="logo">✅</div>
+        </div>
+        
+        <h2 class="mb-3 text-success">Inscription réussie !</h2>
+        
+        <p class="lead mb-4">
+            Félicitations <strong>{{ name }}</strong>,<br>
+            votre compte a été créé avec succès !
+        </p>
+
+        <div class="alert alert-success" role="alert">
+            <strong>✨ Compte créé avec succès</strong><br>
+            Vous allez être redirigé vers la page de connexion dans <span id="countdown">5</span> secondes...
+        </div>
+
+        <div class="d-grid mt-4">
+            <a href="{{ path('app_login') }}" class="btn btn-primary-custom btn-custom">
+                🔐 Se connecter maintenant
+            </a>
+        </div>
+    </div>
+</div>
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .logo {
+            font-size: 72px;
+            animation: bounce 1s ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        #countdown {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let seconds = 5;
+        const countdownElement = document.getElementById('countdown');
+        
+        const timer = setInterval(() => {
+            seconds--;
+            countdownElement.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(timer);
+                window.location.href = "{{ path('app_login') }}";
+            }
+        }, 1000);
+    </script>
+{% endblock %}
+{% endblock %}

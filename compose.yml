@@ -1,0 +1,53 @@
+services:
+
+  db:
+    image: mysql:8.0
+    container_name: exo_db          # ← Changer
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: exo_db        # ← Changer
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3309:3306"                  # ← Changer le port (si 3308 est déjà utilisé)
+    volumes:
+      - dbdata:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8084:80"                    # ← Changer (8080 déjà pris)
+    depends_on:
+      - db
+    environment:
+      - PMA_HOST=exo_db            # ← Changer (même nom que container_name)
+      - UPLOAD_LIMIT=64M
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    container_name: exo_app         # ← Changer
+    volumes:
+      - ./app:/app
+    ports:
+      - "8009:8080"                  # ← Changer (8001 déjà pris)
+    env_file:
+      - .env.docker
+    environment:
+      APP_ENV: dev
+      SERVER_NAME: :8080
+      CADDY_MERCURE: "off"
+      XDEBUG_MODE: "${XDEBUG_MODE:-off}"
+    depends_on:
+      - db
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: exo_mailpit     # ← Changer
+    ports:
+      - "8029:8025"                  # ← Changer (8025 peut-être pris)
+      - "1029:1025"                  # ← Changer
+
+volumes:
+  dbdata:

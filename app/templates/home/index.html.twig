@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+<div class="home-container">
+    <div class="welcome-card">
+        <div class="mb-4">
+            <div class="logo">👋</div>
+        </div>
+        
+        <h1 class="mb-4">Bienvenue {{ app.user.name }} !</h1>
+        
+        <p class="lead mb-4">
+            Vous êtes connecté(e) avec succès à votre compte.
+        </p>
+        
+        <div class="mb-3">
+            <p class="mb-2">
+                <strong>📧 Email :</strong> {{ app.user.email }}
+            </p>
+        </div>
+        
+        <div class="mt-5">
+            <a href="{{ path('app_logout') }}" class="btn btn-light btn-custom">
+                🚪 Se déconnecter
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
